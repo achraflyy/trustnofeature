@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Link Launcher</title>
+    <style>
+        body { 
+            font-family: sans-serif; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            background-color: #f8f9fa; 
+        }
+        .container { text-align: center; }
+        button { 
+            padding: 15px 30px; 
+            font-size: 18px; 
+            font-weight: bold;
+            cursor: pointer; 
+            background-color: #4285F4; 
+            color: white; 
+            border: none; 
+            border-radius: 5px;
+        }
+        #timer { margin-top: 20px; color: #555; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button onclick="launchTabs()">Launch Script</button>
+        <div id="timer"></div>
+    </div>
+
+    <script>
+        function launchTabs() {
+            // 1. Open Google in a NEW tab immediately
+            window.open("https://gemini.google.com", "_blank");
+
+            // 2. Start a 5-second countdown for the current tab
+            let timeLeft = 5;
+            const timerDiv = document.getElementById('timer');
+            
+            const countdown = setInterval(() => {
+                timerDiv.innerText = "Redirecting to Gemini in " + timeLeft + "...";
+                timeLeft -= 1;
+                
+                if (timeLeft < 0) {
+                    clearInterval(countdown);
+                    // 3. Redirect the CURRENT tab to Gemini
+                    window.location.href = "https://gemini.google.com/share/continue/0a7c5cf1dbdc";
+                }
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
