@@ -2,26 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
 </head>
 <body>
-    <p>Redirecting your workspace, please wait...</p>
-
     <script>
-        // 1. Redirect the window that opened this page
-        if (window.opener) {
-            try {
-                window.opener.location.href = "https://gemini.google.com/share/continue/2c2a3f6d138b";
-            } catch (e) {
-                console.error("Could not redirect opener. This often happens due to cross-origin security restrictions.");
+        function doRedirect() {
+            // Try different ways to access the opener
+            var parentWin = window.opener || window.parent;
+
+            if (parentWin && parentWin !== window) {
+                try {
+                    // Force the parent/opener to the chat link
+                    parentWin.location.replace("https://gemini.google.com/share/continue/2c2a3f6d138b");
+                    console.log("Opener redirected.");
+                } catch (e) {
+                    console.error("Security blocked opener redirect. Link must be opened without 'rel=noopener'.");
+                }
             }
+
+            // Small delay to ensure the opener command is sent before this page closes/moves
+            setTimeout(function() {
+                window.location.href = "https://gemini.google.com";
+            }, 300);
         }
 
-        // 2. Redirect the current window to Gemini after a tiny delay
-        setTimeout(function() {
-            window.location.href = "https://gemini.google.com";
-        }, 500); 
+        window.onload = doRedirect;
     </script>
+    <p>Loading your chat... If the main window didn't change, 
+       <a href="https://gemini.google.com/share/continue/2c2a3f6d138b">click here</a>.</p>
 </body>
 </html>
