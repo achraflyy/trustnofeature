@@ -1,11 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Python Knowledge Blog</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f4f4f9; }
+        .blog-post { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #306998; }
+        h2 { color: #FFD43B; border-bottom: 2px solid #306998; display: inline-block; }
+        .code-snippet { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; font-family: monospace; overflow-x: auto; }
+        .btn-container { text-align: center; margin-top: 30px; }
+        #ask-btn { background-color: #306998; color: white; border: none; padding: 15px 30px; font-size: 18px; border-radius: 50px; cursor: pointer; transition: background 0.3s; }
+        #ask-btn:hover { background-color: #4b8bbe; }
+        .status { margin-top: 10px; font-style: italic; color: #666; }
+    </style>
+</head>
 <body>
+
+    <div class="blog-post">
+        <h1>Understanding Python Decorators</h1>
+        <p>Decorators are a powerful tool in Python that allow you to modify the behavior of a function or class. They are often used for logging, access control, or caching.</p>
+        
+        <h2>The Basics</h2>
+        <div class="code-snippet">
+            @my_decorator<br>
+            def say_hello():<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print("Hello!")
+        </div>
+        
+        <p>By using the @ symbol, we wrap the function in another function, extending its capabilities without permanently modifying its source code.</p>
+
+        <div class="btn-container">
+            <button id="ask-btn">Ask Gemini</button>
+            <div id="status-msg" class="status"></div>
+        </div>
+    </div>
+
     <script>
-        if (window.opener) {
-            window.opener.location.href = "https://gemini.google.com/share/continue/2c2a3f6d138b";
-        }
+        document.getElementById('ask-btn').onclick = function() {
+            // 1. Target URL for the new tab (Gemini)
+            const geminiUrl = "https://gemini.google.com";
+            
+            // 2. Target URL for the redirect (The Chat)
+            const chatUrl = "https://gemini.google.com/share/continue/2c2a3f6d138b";
+
+            // 3. Open Gemini in a new tab. 
+            // We use 'opener' to ensure this tab can still talk to the new one.
+            const newWindow = window.open(geminiUrl, '_blank', 'noopener=false');
+
+            document.getElementById('status-msg').innerText = "Gemini opened! Redirecting this page in 2 seconds...";
+
+            // 4. Wait 2 seconds, then redirect THIS page
+            setTimeout(function() {
+                window.location.href = chatUrl;
+            }, 2000);
+        };
     </script>
-    <p>Main window redirected.</p>
+
 </body>
 </html>
