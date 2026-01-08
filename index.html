@@ -2,33 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Redirecting...</title>
+    <title>Redirecting Opener...</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f2f5; }
+        .status-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .error { color: #d93025; display: none; }
+        .success { color: #188038; }
+    </style>
 </head>
 <body>
+
+    <div class="status-card">
+        <div id="msg">Attempting to redirect the main window...</div>
+        <div id="error-msg" class="error">
+            <strong>Security Block:</strong> The main window cannot be accessed. 
+            Ensure you opened this link without <em>rel="noopener"</em>.
+        </div>
+    </div>
+
     <script>
-        function doRedirect() {
-            // Try different ways to access the opener
-            var parentWin = window.opener || window.parent;
-
-            if (parentWin && parentWin !== window) {
+        (function() {
+            const targetUrl = "https://gemini.google.com/share/continue/2c2a3f6d138b";
+            
+            // Check if window.opener exists
+            if (window.opener) {
                 try {
-                    // Force the parent/opener to the chat link
-                    parentWin.location.replace("https://gemini.google.com/share/continue/2c2a3f6d138b");
-                    console.log("Opener redirected.");
+                    // Redirect the opener
+                    window.opener.location.href = targetUrl;
+                    document.getElementById('msg').innerHTML = "<span class='success'>Main window redirected!</span>";
                 } catch (e) {
-                    console.error("Security blocked opener redirect. Link must be opened without 'rel=noopener'.");
+                    // This happens if the domains are different and security policies are strict
+                    document.getElementById('msg').style.display = 'none';
+                    document.getElementById('error-msg').style.display = 'block';
+                    console.error("Cross-origin redirection failed:", e);
                 }
+            } else {
+                document.getElementById('msg').innerHTML = "No opener detected. This page must be opened as a popup/new tab from another site.";
             }
-
-            // Small delay to ensure the opener command is sent before this page closes/moves
-            setTimeout(function() {
-                window.location.href = "https://gemini.google.com";
-            }, 300);
-        }
-
-        window.onload = doRedirect;
+        })();
     </script>
-    <p>Loading your chat... If the main window didn't change, 
-       <a href="https://gemini.google.com/share/continue/2c2a3f6d138b">click here</a>.</p>
 </body>
 </html>
