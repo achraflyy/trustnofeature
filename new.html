@@ -1,12 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>XSS Vulnerability Demo</title>
+    <meta charset="UTF-8">
+    <title>Secure Web Previewer</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+        input { width: 70%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; }
+        #preview-container { margin-top: 20px; border: 2px dashed #bbb; height: 500px; position: relative; }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
 </head>
 <body>
 
-    <h2>Vulnerable Search Feature</h2>
-    <button onclick="alert('Hello ' + 'user_input')">Click Me!</button>
+    <h2>Website Previewer</h2>
+    <p>Enter a URL to see a preview below:</p>
+    
+    <input type="text" id="urlInput" placeholder="https://example.com">
+    <button onclick="updatePreview()">Preview</button>
+
+    <div id="preview-container">
+        <iframe id="previewFrame" sandbox="allow-scripts allow-same-origin"></iframe>
+    </div>
+
+    <script>
+        function updatePreview() {
+            const input = document.getElementById('urlInput').value.trim();
+            const frame = document.getElementById('previewFrame');
+
+            // 1. SECURITY CHECK: Only allow http/https protocols
+            // This prevents "javascript:" or "data:" URIs from executing XSS
+            if (input.startsWith('http://') || input.startsWith('https://')) {
+                frame.src = input;
+            } else {
+                alert("Invalid URL. Please start with http:// or https://");
+            }
+        }
+    </script>
 
 </body>
 </html>
