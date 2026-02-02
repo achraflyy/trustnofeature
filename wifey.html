@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #fff5f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+
+        #yesBtn {
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #noBtn {
+            transition: all 0.2s ease;
+        }
+
+        .success-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ff4d6d;
+            color: white;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .heart-icon {
+            fill: #ff4d6d;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-hearts" id="heartCanvas"></div>
+
+    <div class="container" id="mainContainer">
+        <!-- Simpson-style character with heart SVG -->
+        <div class="mb-6 flex justify-center">
+            <svg width="200" height="200" viewBox="0 0 200 200">
+                <!-- Yellow Character Body -->
+                <circle cx="100" cy="80" r="40" fill="#FFD90F" stroke="#000" stroke-width="3"/>
+                <rect x="80" y="110" width="40" height="60" fill="#FFD90F" stroke="#000" stroke-width="3"/>
+                <!-- Eyes -->
+                <circle cx="85" cy="75" r="12" fill="white" stroke="#000" stroke-width="2"/>
+                <circle cx="115" cy="75" r="12" fill="white" stroke="#000" stroke-width="2"/>
+                <circle cx="87" cy="75" r="3" fill="black"/>
+                <circle cx="117" cy="75" r="3" fill="black"/>
+                <!-- Smile -->
+                <path d="M 85 95 Q 100 105 115 95" fill="none" stroke="#000" stroke-width="2"/>
+                <!-- Big Heart -->
+                <path class="heart-icon" d="M 100 160 C 100 160 60 130 60 100 C 60 80 80 75 100 90 C 120 75 140 80 140 100 C 140 130 100 160 100 160" stroke="#000" stroke-width="2"/>
+            </svg>
+        </div>
+
+        <h1 class="text-4xl font-bold text-pink-600 mb-8" id="question">Loudjaiiiiin! Would you be my Valentine?</h1>
+
+        <div class="flex flex-wrap justify-center items-center gap-4" id="buttonGroup">
+            <button id="yesBtn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg text-xl">
+                Yes
+            </button>
+            <button id="noBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-full shadow-lg text-xl">
+                No
+            </button>
+        </div>
+    </div>
+
+    <div id="successScreen" class="success-screen">
+        <h1 class="text-6xl font-black mb-4">YAY! ❤️</h1>
+        <p class="text-2xl">I knew you'd say yes!</p>
+        <div class="mt-8">
+             <svg width="100" height="100" viewBox="0 0 200 200">
+                <path fill="white" d="M 100 160 C 100 160 60 130 60 100 C 60 80 80 75 100 90 C 120 75 140 80 140 100 C 140 130 100 160 100 160"/>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const mainContainer = document.getElementById('mainContainer');
+        const successScreen = document.getElementById('successScreen');
+        const heartCanvas = document.getElementById('heartCanvas');
+
+        let yesScale = 1;
+        let noScale = 1;
+        const messages = [
+            "Are you sure?",
+            "Really sure??",
+            "Think again!",
+            "Last chance!",
+            "Surely not?",
+            "You might regret this!",
+            "Give it another thought!",
+            "Are you absolutely sure?",
+            "This could be a mistake!",
+            "Have a heart!",
+            "Don't be so cold!",
+            "Change of heart?",
+            "Is that your final answer?",
+            "You're breaking my heart ;(",
+        ];
+        let messageIndex = 0;
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '110vh';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.opacity = Math.random();
+            heart.style.transition = `transform ${Math.random() * 3 + 2}s linear, opacity 2s`;
+            heartCanvas.appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.transform = `translateY(-120vh) rotate(${Math.random() * 360}deg)`;
+            }, 100);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+
+        noBtn.addEventListener('click', () => {
+            // Increase Yes Button size
+            yesScale += 0.45;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            
+            // Decrease No Button size
+            noScale -= 0.1;
+            if (noScale < 0.3) noScale = 0.3;
+            noBtn.style.transform = `scale(${noScale})`;
+
+            // Change No Button text
+            noBtn.innerText = messages[messageIndex];
+            messageIndex = (messageIndex + 1) % messages.length;
+
+            // If Yes button is huge, make it fill more aggressively
+            if (yesScale > 10) {
+                yesBtn.style.position = 'fixed';
+                yesBtn.style.top = '50%';
+                yesBtn.style.left = '50%';
+                yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
+                yesBtn.style.zIndex = '50';
+            }
+        });
+
+        yesBtn.addEventListener('click', () => {
+            // Instant full screen effect
+            yesBtn.style.transition = 'all 0.5s ease-in';
+            yesBtn.style.transform = 'scale(100)';
+            
+            setTimeout(() => {
+                successScreen.style.display = 'flex';
+                mainContainer.style.display = 'none';
+            }, 300);
+        });
+
+        // Touch support for mobile
+        yesBtn.addEventListener('touchstart', (e) => {
+            if(yesScale > 15) {
+                e.preventDefault();
+                yesBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
