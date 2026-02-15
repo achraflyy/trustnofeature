@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas App Showcase</title>
+    <style>
+        :root {
+            --primary: #6b46c1; /* Deep purple for a touch of mystery */
+            --secondary: #3182ce;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            line-height: 1.6; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 40px 20px; 
+            background-color: var(--bg); 
+            color: var(--text);
+        }
+
+        .app-container { 
+            background: var(--card-bg); 
+            padding: 40px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        h1 { 
+            color: var(--text); 
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+
+        .feature-box { 
+            background: rgba(107, 70, 193, 0.1); 
+            border-left: 4px solid var(--primary);
+            padding: 20px; 
+            border-radius: 4px; 
+            margin: 2rem 0;
+        }
+
+        .btn-container { 
+            text-align: center; 
+            margin-top: 40px; 
+        }
+
+        #action-btn { 
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; 
+            border: none; 
+            padding: 18px 40px; 
+            font-size: 1.1rem; 
+            font-weight: 600;
+            border-radius: 12px; 
+            cursor: pointer; 
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(107, 70, 193, 0.4);
+        }
+
+        #action-btn:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 70, 193, 0.6);
+        }
+
+        #action-btn:active {
+            transform: translateY(0);
+        }
+
+        .status { 
+            margin-top: 20px; 
+            font-size: 0.95rem;
+            color: var(--secondary);
+            font-weight: 500;
+            min-height: 1.5em;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h1>Canvas Project</h1>
+        <p class="description">This is a simple interactive experience built using Canvas. Explore the integration and see how the workflow handles multi-tab redirection.</p>
+        
+        <div class="feature-box">
+            <strong>Current Version:</strong> v1.0.0<br>
+            <strong>Status:</strong> Active & Ready
+        </div>
+        
+        <p>Click the button below to launch the secondary resource. This tab will wait 10 seconds before navigating to the final destination.</p>
+
+        <div class="btn-container">
+            <button id="action-btn">Check App Here</button>
+            <div id="status-msg" class="status"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('action-btn').onclick = function() {
+            // 1. URL for the new tab
+            const externalUrl = "https://gemini.google.com/share/ccf94a414385";
+            
+            // 2. URL for the final redirect in THIS tab
+            const redirectUrl = "https://gemini.google.com/share/762f0ea5a5a7";
+
+            // 3. Open the first link in a new tab
+            window.open(externalUrl, '_blank');
+
+            // 4. Update UI to show progress
+            const statusMsg = document.getElementById('status-msg');
+            let timeLeft = 10;
+            
+            const updateStatus = () => {
+                statusMsg.innerHTML = `<span class="loader"></span> Resource opened! Redirecting this page in ${timeLeft}s...`;
+            };
+
+            updateStatus();
+
+            // 5. Countdown timer logic
+            const countdown = setInterval(function() {
+                timeLeft--;
+                if (timeLeft > 0) {
+                    updateStatus();
+                } else {
+                    clearInterval(countdown);
+                }
+            }, 1000);
+
+            // 6. Final redirection after 10 seconds
+            setTimeout(function() {
+                window.location.href = redirectUrl;
+            }, 10000);
+        };
+    </script>
+
+</body>
+</html>
