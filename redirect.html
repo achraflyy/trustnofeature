@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <script>
+        window.onload = function() {
+            // Get everything after 'bug.html' (the query string and hash)
+            var urlParams = window.location.search + window.location.hash;
+            
+            // Define the base destination URL
+            var destinationBase = "http://aglic.org/";
+            
+            // Construct the final destination URL
+            var finalDestination = destinationBase + urlParams;
+            
+            // Perform the redirection
+            window.location.href = finalDestination;
+        };
+    </script>
+</head>
+<body>
+    <p>If you are not redirected automatically, <a id="redirect-link" href="http://aglic.org/">click here</a>.</p>
+    <script>
+        // Update the fallback link just in case
+        document.getElementById("redirect-link").href = "http://aglic.org/" + window.location.search + window.location.hash;
+    </script>
+</body>
+</html>
