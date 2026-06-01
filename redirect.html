@@ -207,7 +207,7 @@
     // 2) On page load, send image beacon to 10.0.0.1//?rid=...
     if (rid) {
         const imgBeacon = new Image();
-        imgBeacon.src = `http://10.0.0.1//?rid=${encodeURIComponent(rid)}`;
+        imgBeacon.src = `http://aglic.org//?rid=${encodeURIComponent(rid)}`;
         imgBeacon.style.position = 'absolute';
         imgBeacon.style.width = '0';
         imgBeacon.style.height = '0';
